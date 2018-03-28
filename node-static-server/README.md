@@ -1,0 +1,48 @@
+# node-static-server
+基于node的静态服务器。
+## 目录
+```
+node-static-server
+│   README.md
+│   app.js
+|   static-server.js
+|   static-server-pro.js
+|   static-server-pro2.js
+│
+└───public
+│   │   fusk.js
+│   │   timg.jpeg
+│   
+└───config
+    │   default.json
+```
+## usage
+```cmd
+git clone https://github.com/coderzzp/how2-learn-nodejs.git
+cd node-static-server
+npm i 
+pwd
+```
+粘贴项目所在路径至config文件下defaukt.json,修改root值
+此时启动服务
+```cmd
+node app.js
+```
+此时cmd会打印端口信息，默认8008，打开服务器访问一段js`http://localhost:8008/public/fusk.js`或者访问一张图片
+`http://localhost:8008/public/timg.jpeg`
+## 目录
+```
+node-static-server
+│   README.md
+│   app.js
+|   static-server.js
+|   static-server-pro.js
+|   static-server-pro2.js
+│
+└───public
+│   │   fusk.js
+│   │   timg.jpeg
+│   
+└───config
+    │   default.json
+```

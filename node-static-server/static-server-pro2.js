@@ -20,17 +20,6 @@ var options = require( "yargs" )
     .argv;
 
 class StaticServer {
-    constructor() {
-      this.port = config.port;
-      this.root = config.root;
-      this.indexPage = config.indexPage;
-      this.enableCacheControl = config.cacheControl;
-      this.enableExpires = config.expires;
-      this.enableETag = config.etag;
-      this.enableLastModified = config.lastModified;
-      this.maxAge = config.maxAge;
-      this.zipMatch = new RegExp(config.zipMatch);
-    }
     responseFile(stat,pathName,req,res){
       let readStream;
       res.setHeader('Content-Type', lookup(pathName));

@@ -1,6 +1,6 @@
 {
   "port": 8008,
-  "root": "/Users/zzp/Documents/node-static-server",
+  "root": "/Users/zzp/Documents/how2-learn-nodejs/node-static-server",
   "indexPage": "index.html",
   "cacheControl": true,
   "expires": true,
