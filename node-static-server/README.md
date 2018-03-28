@@ -1,5 +1,5 @@
 # node-static-server
-基于node的静态服务器。
+基于node的静态服务器。
 ## 目录
 ```
 node-static-server
@@ -23,12 +23,12 @@ cd node-static-server
 npm i 
 pwd
 ```
-粘贴项目所在路径至config文件下defaukt.json,修改root值
+粘贴项目所在路径至config文件下defaukt.json,修改root值
 此时启动服务
 ```cmd
 node app.js
 ```
-此时cmd会打印端口信息，默认8008，打开服务器访问一段js`http://localhost:8008/public/fusk.js`或者访问一张图片
+此时cmd会打印端口信息，默认8008，打开服务器访问服务器上一段js`http://localhost:8008/public/fusk.js`或者一张图片
 `http://localhost:8008/public/timg.jpeg`
 ## 目录
 ```
