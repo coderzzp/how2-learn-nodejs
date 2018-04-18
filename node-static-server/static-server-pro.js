@@ -6,6 +6,7 @@ const url = require('url')
 const config = require('./config/default');
 const {lookup} = require('./mime.js')
 
+//带有缓存机制的静态服务器
 class StaticServer {
     constructor() {
       this.port = config.port;
@@ -63,6 +64,7 @@ class StaticServer {
         });
       }
     }
+    //设置etag的一种简单方式
     generateETag(stat) {
       const mtime = stat.mtime.getTime().toString(16);
       const size = stat.size.toString(16);
@@ -70,7 +72,10 @@ class StaticServer {
     }
 
     setFreshHeaders(stat, res) {
+      //关于缓存可以在https://www.cnblogs.com/wonyun/p/5524617.html参考
+      //从stat里拿到信息
       const lastModified = stat.mtime.toUTCString();
+      //强缓存
       if (this.enableExpires) {
           const expireTime = (new Date(Date.now() + this.maxAge * 1000)).toUTCString();
           res.setHeader('Expires', expireTime);
@@ -78,6 +83,7 @@ class StaticServer {
       if (this.enableCacheControl) {
           res.setHeader('Cache-Control', `public, max-age=${this.maxAge}`);
       }
+      //弱缓存
       if (this.enableLastModified) {
           res.setHeader('Last-Modified', lastModified);
       }
@@ -100,10 +106,13 @@ class StaticServer {
     respond(pathName, req, res) {
       fs.stat(pathName, (err, stat) => {
           if (err) return respondError(err, res);
+          //设置带缓存机制的响应头
           this.setFreshHeaders(stat, res);
+          //通过请求头，和响应头，判断资源是否是新鲜的（在弱缓存有效期内）
           if (this.isFresh(req.headers, res._headers)) {
               this.responseNotModified(res);
           } else {
+          //请求头不新鲜，直接返回文件
               this.responseFile(pathName, res);
           }
       });
@@ -114,13 +123,14 @@ class StaticServer {
     }
     routeHandler(pathName, req, res) {
       fs.stat(pathName, (err, stat) => {
-      if (!err) {
-        const requestedPath = url.parse(req.url).pathname;
+        if (!err) {
+          const requestedPath = url.parse(req.url).pathname;
           if (this.hasTrailingSlash(requestedPath) && stat.isDirectory()) {
             this.respondDirectory(pathName, req, res);
           } else if (stat.isDirectory()) {
             this.respondRedirect(req, res);
           } else {
+            //注意这里换成了respond，相比之前有所不同
             this.respond(pathName, req, res);
           }
         } else {

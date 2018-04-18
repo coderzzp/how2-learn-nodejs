@@ -5,8 +5,11 @@ const url = require('url')
 const config = require('./config/default');
 const {lookup} = require('./mime.js')
 
+//一个简单的nodejs静态服务器构造函数
+
 class StaticServer {
     constructor() {
+      //配置
       this.port = config.port;
       this.root = config.root;
       this.indexPage = config.indexPage;
@@ -18,6 +21,7 @@ class StaticServer {
     }
     respondFile(pathName,req,res){
       const readStream = fs.createReadStream(pathName);
+      //配置响应头Contenyt-Type:客户端会依据这个值来显示文件
       res.setHeader('Content-Type', lookup(pathName));
       readStream.pipe(res)
     }
@@ -37,9 +41,11 @@ class StaticServer {
     }
     respondDirectory(pathName, req, res) {
       const indexPagePath = path.join(pathName, this.indexPage);
+      //先尝试直接返回该文件夹下的Index文件
       if (fs.existsSync(indexPagePath)) {
           this.respondFile(indexPagePath, req, res);
       } else {
+        //读取文件夹下所有的文件和文件夹
         fs.readdir(pathName, (err, files) => {
           if (err) {
             res.writeHead(500);
@@ -70,13 +76,16 @@ class StaticServer {
       fs.stat(pathName, (err, stat) => {
       if (!err) {
         const requestedPath = url.parse(req.url).pathname;
-          if (this.hasTrailingSlash(requestedPath) && stat.isDirectory()) {
+          //如果请求路径末尾是'/'并且该请求文件是文件路径
+        if (this.hasTrailingSlash(requestedPath) && stat.isDirectory()) {
             this.respondDirectory(pathName, req, res);
-          } else if (stat.isDirectory()) {
-            this.respondRedirect(req, res);
-          } else {
-            this.respondFile(pathName, req, res);
-          }
+        } else if (stat.isDirectory()) {
+        //如果仅满足请求文件是文件路径，重定向301到上一步
+          this.respondRedirect(req, res);
+        } else {
+        //请求文件是文件，直接返回文件
+          this.respondFile(pathName, req, res);
+        }
         } else {
           this.respondNotFound(req, res);
         }
