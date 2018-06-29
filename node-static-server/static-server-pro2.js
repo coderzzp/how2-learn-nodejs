@@ -1,4 +1,4 @@
-//添加缓存机制
+//feature:文件压缩传输，chunk传输
 const http = require('http');
 const path = require('path');
 const fs = require('fs')

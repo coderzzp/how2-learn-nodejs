@@ -20,9 +20,11 @@ class StaticServer {
       this.maxAge = config.maxAge;
     }
     respondFile(pathName,req,res){
+      //读取文件流
       const readStream = fs.createReadStream(pathName);
       //配置响应头Contenyt-Type:客户端会依据这个值来显示文件
       res.setHeader('Content-Type', lookup(pathName));
+      //连接readStream和res流
       readStream.pipe(res)
     }
     respondNotFound(req,res){
@@ -80,7 +82,7 @@ class StaticServer {
         if (this.hasTrailingSlash(requestedPath) && stat.isDirectory()) {
             this.respondDirectory(pathName, req, res);
         } else if (stat.isDirectory()) {
-        //如果仅满足请求文件是文件路径，重定向301到上一步
+        //如果仅满足请求文件是文件路径，重定向301回到上一分支
           this.respondRedirect(req, res);
         } else {
         //请求文件是文件，直接返回文件
