@@ -18,7 +18,7 @@ function getAst (filename) {
   });
 }
 /**
- * 通过ast得到该ast的依赖 
+ * 通过ast得到该代码的依赖 
  * 具体文档：https://github.com/jamiebuilds/babel-handbook/blob/master/translations/en/plugin-handbook.md#toc-babel-traverse
  * @param filename
  * @returns {*}
@@ -34,7 +34,7 @@ function getDependence (ast) {
 }
 
 /**
- * 通过adt生成code
+ * 通过ast生成code
  * @param ast
  * @returns {*}
  */
@@ -64,7 +64,7 @@ function parse(fileName, entry) {
 }
 
 /**
- * 获取深度队列依赖关系，类似于递归调用，解析并获得所有的模块
+ * 获取深度队列依赖关系，类似于递归调用，解析并获得所有解析后的模块
  * @param main
  * @returns {*[]}
  */
