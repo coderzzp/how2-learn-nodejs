@@ -5,4 +5,5 @@
 [从0实现一个简易静态服务器](https://github.com/coderzzp/how2-learn-nodejs/tree/master/node-static-server)  
 [从0实现一个简易webpack](https://github.com/coderzzp/how2-learn-nodejs/tree/master/webpack-come-true) 
 ### blog系列
+[浏览器缓存策略之node实践](https://github.com/coderzzp/how2-learn-nodejs/issues/3)
 
