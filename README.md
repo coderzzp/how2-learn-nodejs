@@ -3,6 +3,6 @@
 ### 用node从0实现系列
 [从0实现一个简易koa](https://github.com/coderzzp/how2-learn-nodejs/tree/master/koa-come-true)  
 [从0实现一个简易静态服务器](https://github.com/coderzzp/how2-learn-nodejs/tree/master/node-static-server)  
-[从0实现一个简易webpack](https://github.com/coderzzp/how2-learn-nodejs//tree/master/webpack-come-ture))
+[从0实现一个简易webpack](https://github.com/coderzzp/how2-learn-nodejs/tree/master/webpack-come-true）
 ### blog系列
 
